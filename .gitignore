@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+package-lock.json # Use yarn.lock instead
 
 # testing
 /coverage
@@ -25,11 +26,19 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# dotenv local files
+# dotenv environment variables
+# Don't commit secrets - See https://nextjs.org/docs/basic-features/environment-variables
+.env
 .env*.local
+.env.development
+.env.production
 
 # local folder
 local
 
 # vercel
 .vercel
+
+# IDE / Editor directories
+.vscode/
+.idea/
