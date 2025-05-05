@@ -1,0 +1,34 @@
+@import url('/fonts/sf-pro-display.css');
+
+@tailwind base;
+
+@tailwind components;
+
+@tailwind utilities;
+
+@layer base {
+  html, body {
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    color: theme('colors.secondary.DEFAULT');
+    background-color: theme('colors.background');
+  }
+  
+  body {
+    background-image: url('/assets/images/background.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+  }
+  
+  #__next {
+    min-height: 100vh;
+    position: relative;
+  }
+}
