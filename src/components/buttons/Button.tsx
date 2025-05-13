@@ -1,4 +1,4 @@
-import React, { ReactNode, ButtonHTMLAttributes, forwardRef, Ref } from 'react';
+import React, { ReactNode, ButtonHTMLAttributes, forwardRef } from 'react';
 import Image from 'next/image';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
