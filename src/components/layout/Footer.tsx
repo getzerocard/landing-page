@@ -9,7 +9,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
   return (
     <footer 
-      className={`absolute bottom-[48px] left-1/2 transform -translate-x-1/2 w-auto flex flex-row items-center gap-3 ${className}`}
+      className={`w-full absolute md:bottom-[0px] bottom-[-300px] left-1/2 transform -translate-x-1/2 md:w-auto flex flex-col md:flex-row items-center gap-3 ${className}`}
     >
       {/* Terms of Use Link */}
       <Link href="/terms" className="flex flex-row items-center gap-0.5 group">
@@ -29,8 +29,8 @@ export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
         </div>
       </Link>
 
-      {/* Divider 1 */}
-      <div className="w-[1px] h-[23px] bg-[#BABABA]" />
+      {/* Divider 1 - Hidden on mobile */}
+      <div className="hidden md:block w-[1px] h-[23px] bg-[#BABABA]" />
 
       {/* Social Links Section */}
       <div className="flex flex-row items-center gap-3">
@@ -65,8 +65,8 @@ export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
         </Link>
       </div>
 
-      {/* Divider 2 */}
-      <div className="w-[1px] h-[23px] bg-[#BABABA]" />
+      {/* Divider 2 - Hidden on mobile */}
+      <div className="hidden md:block w-[1px] h-[23px] bg-[#BABABA]" />
 
       {/* Reserve Card Link */}
       <Link href="#reserve" className="flex flex-row items-center gap-1 group">
