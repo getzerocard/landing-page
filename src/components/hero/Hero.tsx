@@ -48,12 +48,12 @@ export const Hero: React.FC<HeroProps> = ({ className = '' }) => {
   }, [isPopupVisible]); // Only re-run if isPopupVisible changes
 
   return (
-    <div className={`absolute w-[500px] h-auto left-[calc(50%-500px/2)] top-[240px] flex flex-col items-center gap-4 ${className}`}>
+    <div className={`w-full max-w-[500px] px-4 md:py-0 py-20 sm:px-0 mx-auto h-auto absolute left-1/2 -translate-x-1/2 top-[120px] sm:top-[240px] flex flex-col items-center gap-4 ${className}`}>
       {/* Read why link component */}
       <ReadWhyLink href="/about" />
 
       {/* Headline */}
-      <h1 className="w-[408px] font-['SF_Pro_Display'] font-semibold text-[64px] leading-[100%] text-center text-[#1F1F1F]">
+      <h1 className="w-full sm:w-[408px] font-['SF_Pro_Display'] font-semibold text-[40px] sm:text-[64px] leading-[100%] text-center text-[#1F1F1F]">
         Spend crypto like <TypingText texts={currencies} className="text-[#8F8F8F]" />
       </h1>
 
@@ -63,13 +63,14 @@ export const Hero: React.FC<HeroProps> = ({ className = '' }) => {
       </SubheadlineText>
 
       {/* Buttons Container */}
-      <div className="relative flex gap-4 mt-6"> {/* Added relative positioning */} 
+      <div className="relative flex gap-4 mt-6 w-full sm:w-auto"> 
         <StartSpendingButton 
           ref={buttonRef} // Attach ref to the button
           onClick={togglePopup} 
-          text={buttonText} 
+          text={buttonText}
+          className="w-full sm:w-auto"
         />
-        <ReserveCardButton />
+        <ReserveCardButton className="w-full sm:w-auto" />
 
         {/* Conditionally render the Popup */}
         {isPopupVisible && (
