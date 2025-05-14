@@ -4,7 +4,7 @@ import CenteredLogo from '../components/CenteredLogo';
 
 const PrivacyPolicy = () => {
   return (
-    <div className="relative min-h-screen bg-secondary text-secondary">
+    <div className="relative min-h-screen bg-[#f7f7f7] text-secondary">
       <NextSeo
         title="Privacy Policy | Zerocard"
         description="Zerocard's Privacy Policy details how we collect, use, and protect your personal information when you use our crypto-linked debit card service."

@@ -4,7 +4,7 @@ import CenteredLogo from '../components/CenteredLogo';
 
 const TermsOfUse = () => {
   return (
-    <div className="relative min-h-screen bg-secondary text-secondary">
+    <div className="relative min-h-screen bg-[#f7f7f7] text-secondary">
       <NextSeo
         title="Terms of Use | Zerocard"
         description="Zerocard's Terms of Use outline the rules, guidelines, and legal terms that govern your use of our crypto-linked debit card service."
