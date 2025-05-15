@@ -31,9 +31,8 @@ const TermsOfUse = () => {
           <h1 className="text-3xl font-bold text-center mb-8">Zerocard Terms of Use</h1>
           
           <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 mb-6">
-            <div className="flex justify-between text-sm text-gray-500 mb-6">
-              <p>Effective Date: [Insert Date]</p>
-              <p>Last Updated: [Insert Date]</p>
+            <div className="text-sm text-gray-500 mb-6">
+              <p>Last Updated: May 12, 2025</p>
             </div>
             <p className="mb-6">Company: Zerocard</p>
             
