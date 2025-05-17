@@ -50,7 +50,7 @@ export const Hero: React.FC<HeroProps> = ({ className = '' }) => {
   return (
     <div className={`w-full max-w-[500px] px-4 md:py-0 py-20 sm:px-0 mx-auto h-auto absolute left-1/2 -translate-x-1/2 top-[120px] sm:top-[240px] flex flex-col items-center gap-4 ${className}`}>
       {/* Read why link component */}
-      <ReadWhyLink href="/about" />
+      <ReadWhyLink href="https://paragraph.com/@dayofolajin/why-we-built-zerocard" />
 
       {/* Headline */}
       <h1 className="w-full sm:w-[408px] font-['SF_Pro_Display'] font-semibold text-[40px] sm:text-[64px] leading-[100%] text-center text-[#1F1F1F]">
