@@ -16,10 +16,10 @@ const PrivacyPolicy = () => {
         }}
       />
       
-      {/* Background SVG */}
-      <div className="absolute inset-0 overflow-hidden z-0">
+      {/* Fixed Background SVG */}
+      <div className="fixed inset-0 w-full h-full z-0">
         <div 
-          className="absolute inset-0 bg-no-repeat bg-cover" 
+          className="w-full h-full bg-no-repeat bg-cover" 
           style={{ backgroundImage: 'url(/assets/images/background.svg)' }}
         />
       </div>
@@ -31,9 +31,8 @@ const PrivacyPolicy = () => {
           <h1 className="text-3xl font-bold text-center mb-8">Zerocard Privacy Policy</h1>
           
           <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 mb-6">
-            <div className="flex justify-between text-sm text-gray-500 mb-6">
-              <p>Effective Date: [Insert Date]</p>
-              <p>Last Updated: [Insert Date]</p>
+            <div className="text-sm text-gray-500 mb-6">
+              <p>Last Updated: May 12, 2025</p>
             </div>
             <p className="mb-6">Company: Zerocard ("Zerocard", "we", "our", "us")</p>
             
@@ -82,7 +81,7 @@ const PrivacyPolicy = () => {
                       <td className="border border-gray-300 px-4 py-2">Wallet balance; Transaction history; Spending limits</td>
                       <td className="border border-gray-300 px-4 py-2">Transaction processing; fraud prevention</td>
                       <td className="border border-gray-300 px-4 py-2">Yes</td>
-                      <td className="border border-gray-300 px-4 py-2">Yes (Sudo Africa)</td>
+                      <td className="border border-gray-300 px-4 py-2">Yes (Card Issuer)</td>
                     </tr>
                     <tr>
                       <td className="border border-gray-300 px-4 py-2">Device & Usage Data</td>
@@ -101,7 +100,7 @@ const PrivacyPolicy = () => {
               <ul className="list-disc pl-5 space-y-2">
                 <li><strong>Account Management:</strong> Create and maintain your Zerocard account and custodial wallet.</li>
                 <li><strong>KYC/AML Compliance:</strong> Verify identity through BVN/NIN and OTP checks to meet legal requirements.</li>
-                <li><strong>Card Issuance & Delivery:</strong> Issue virtual/physical debit cards via Sudo Africa; ship cards to your address.</li>
+                <li><strong>Card Issuance & Delivery:</strong> Issue virtual/physical debit cards via Card Issuer; ship cards to your address.</li>
                 <li><strong>Transaction Processing:</strong> Load USDC on Base; enable spending at POS, ATMs, and online; process withdrawals.</li>
                 <li><strong>Fraud Prevention & Security:</strong> Monitor transactions and device data to detect and block fraud.</li>
                 <li><strong>App Improvement:</strong> Analyze usage and crash reports to enhance stability and features.</li>
@@ -112,7 +111,7 @@ const PrivacyPolicy = () => {
               <h2 className="text-xl font-semibold mb-4">4. Data Sharing & Disclosure</h2>
               <p className="mb-2">We do not sell your data. We share only as necessary with:</p>
               <ul className="list-disc pl-5 space-y-2">
-                <li><strong>Sudo Africa:</strong> Card‑issuing infrastructure and Banking partner for fiat off‑ramp</li>
+                <li><strong>Card Issuer:</strong> Card‑issuing infrastructure</li>
                 <li><strong>KYC Providers:</strong> For BVN/NIN and phone verification</li>
                 <li><strong>Shipping Partners:</strong> To deliver physical cards</li>
                 <li><strong>Analytics & Hosting:</strong> For app performance and hosting services</li>

@@ -7,19 +7,19 @@ const TermsOfUse = () => {
     <div className="relative min-h-screen bg-[#f7f7f7] text-secondary">
       <NextSeo
         title="Terms of Use | Zerocard"
-        description="Zerocard's Terms of Use outline the rules, guidelines, and legal terms that govern your use of our crypto-linked debit card service."
+        description="Zerocard's Terms of Use outline the rules and guidelines for using our crypto-linked debit card service."
         canonical="https://getzerocard.xyz/terms-of-use"
         openGraph={{
           title: 'Terms of Use | Zerocard',
-          description: 'Read the Terms of Use for Zerocard: Your crypto-linked debit card solution.',
+          description: 'Read Zerocard\'s Terms of Use for our crypto-linked debit card service.',
           url: 'https://getzerocard.xyz/terms-of-use',
         }}
       />
       
-      {/* Background SVG */}
-      <div className="absolute inset-0 overflow-hidden z-0">
+      {/* Fixed Background SVG */}
+      <div className="fixed inset-0 w-full h-full z-0">
         <div 
-          className="absolute inset-0 bg-no-repeat bg-cover" 
+          className="w-full h-full bg-no-repeat bg-cover" 
           style={{ backgroundImage: 'url(/assets/images/background.svg)' }}
         />
       </div>
@@ -31,9 +31,8 @@ const TermsOfUse = () => {
           <h1 className="text-3xl font-bold text-center mb-8">Zerocard Terms of Use</h1>
           
           <div className="bg-white rounded-lg shadow-lg p-6 md:p-8 mb-6">
-            <div className="flex justify-between text-sm text-gray-500 mb-6">
-              <p>Effective Date: [Insert Date]</p>
-              <p>Last Updated: [Insert Date]</p>
+            <div className="text-sm text-gray-500 mb-6">
+              <p>Last Updated: May 12, 2025</p>
             </div>
             <p className="mb-6">Company: Zerocard</p>
             
@@ -79,7 +78,7 @@ const TermsOfUse = () => {
               <ul className="list-disc pl-5 space-y-2">
                 <li>Transaction Limit (Beta): 100 USDC per wallet load.</li>
                 <li>Fees: As disclosed in‑app (e.g., card issuance, ATM withdrawals).</li>
-                <li>All payments processed by Sudo Africa are under their fee schedules.</li>
+                <li>All payments processed by Card Issuer are under their fee schedules.</li>
               </ul>
             </section>
             
