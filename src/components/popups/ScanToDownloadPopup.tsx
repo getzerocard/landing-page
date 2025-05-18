@@ -21,7 +21,7 @@ export const ScanToDownloadPopup: React.FC<ScanToDownloadPopupProps> = ({ classN
       width: 135,
       height: 135,
       type: 'svg',
-      data: 'https://google.com',
+      data: 'https://testflight.apple.com/join/Bm7Pr72p',
       image: '/assets/images/zerologo-black.svg',
       dotsOptions: {
         color: '#1F1F1F',
