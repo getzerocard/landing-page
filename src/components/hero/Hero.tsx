@@ -7,9 +7,10 @@ import ScanToDownloadPopup from '../popups/ScanToDownloadPopup';
 
 interface HeroProps {
   className?: string;
+  onReserveCardClick?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ className = '' }) => {
+export const Hero: React.FC<HeroProps> = ({ className = '', onReserveCardClick }) => {
   const currencies = ['cash', 'naira', 'cedis', 'shilling', 'dollar', 'euro', 'pounds', 'rupees', 'franc'];
 
   const [isPopupVisible, setIsPopupVisible] = useState(false);
@@ -70,7 +71,10 @@ export const Hero: React.FC<HeroProps> = ({ className = '' }) => {
           text={buttonText}
           className="w-full sm:w-auto"
         />
-        <ReserveCardButton className="w-full sm:w-auto" />
+        <ReserveCardButton 
+          onClick={onReserveCardClick}
+          className="w-full sm:w-auto"
+        />
 
         {/* Conditionally render the Popup */}
         {isPopupVisible && (
