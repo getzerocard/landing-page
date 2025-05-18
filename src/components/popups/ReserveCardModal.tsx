@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Button } from '../buttons/Button';
-import { db } from '../../firebase'; // Adjust path as needed
-import { collection, addDoc, getDocs } from 'firebase/firestore';
+import { db } from '../../firebase.js'; // Adjust path as needed
+import { collection, addDoc, getDocs, query, where, limit } from 'firebase/firestore'; // Added query, where, limit
 import { IoClose } from 'react-icons/io5'; // Import the close icon
 
 interface ReserveCardModalProps {
@@ -45,6 +45,16 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
     setIsLoading(true);
 
     try {
+      // Check if email already exists
+      const q = query(collection(db, 'waitlist'), where('email', '==', email), limit(1));
+      const querySnapshotExisting = await getDocs(q);
+
+      if (!querySnapshotExisting.empty) {
+        setError('You are already on our waitlist');
+        setIsLoading(false);
+        return;
+      }
+
       console.log('Submitting email:', email);
       // Add email to Firestore
       await addDoc(collection(db, 'waitlist'), {

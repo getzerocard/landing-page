@@ -5,7 +5,6 @@ import CenteredLogo from '../components/CenteredLogo';
 import Hero from '../components/hero/Hero';
 import FeaturesSection from '../components/features/FeaturesSection';
 import Footer from '../components/layout/Footer';
-import { ReserveCardButton } from '@/components/buttons/Button';
 import { ReserveCardModal } from '@/components/popups/ReserveCardModal';
 
 const Home: NextPage = () => {
