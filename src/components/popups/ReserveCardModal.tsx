@@ -46,7 +46,7 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
 
     try {
       // Check if email already exists
-      const q = query(collection(db, 'waitlist'), where('email', '==', email), limit(1));
+      const q = query(collection(db, 'waitlist'), where('email', '==', email.toLowerCase()), limit(1));
       const querySnapshotExisting = await getDocs(q);
 
       if (!querySnapshotExisting.empty) {
