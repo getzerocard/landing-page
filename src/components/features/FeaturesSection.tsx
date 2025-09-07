@@ -8,14 +8,14 @@ interface FeaturesSectionProps {
 export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ className = '' }) => {
   // New top position = Hero top (240px) + Hero height (241.51px) + Gap (124px) = ~606px
   return (
-    <div className={`w-full max-w-[741px] px-4 sm:px-0 mx-auto h-auto absolute left-1/2 -translate-x-1/2 md:top-[680px] top-[570px] flex flex-col sm:flex-row items-center gap-5 sm:gap-6 ${className}`}>
+    <div className={`w-full max-w-[741px] px-4 sm:px-0 mx-auto h-auto absolute left-1/2 -translate-x-1/2 md:top-[620px] top-[510px] flex flex-col sm:flex-row items-start gap-5 sm:gap-6 ${className}`}>
       {/* Feature 1 */}
       <div className="flex flex-col items-center sm:items-start gap-[3px] w-full sm:w-[207px]">
         <h3 className="w-full font-['SF_Pro_Display'] font-semibold text-[28px] sm:text-[32px] leading-[100%] text-[#1F1F1F] text-center sm:text-left">
-          1.5x
+        1.5x faster
         </h3>
         <p className="w-full font-['SF_Pro_Display'] font-medium text-[16px] sm:text-[20px] leading-[120%] text-[#919191] text-center sm:text-left">
-          faster than your regular debit cards
+        than traditional card transactions
         </p>
       </div>
 
@@ -25,10 +25,10 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ className = ''
       {/* Feature 2 */}
       <div className="flex flex-col items-center sm:items-start gap-[3px] w-full sm:w-[219px]">
         <h3 className="w-full font-['SF_Pro_Display'] font-semibold text-[28px] sm:text-[32px] leading-[100%] text-[#1F1F1F] text-center sm:text-left">
-          zero fees<span className="text-[#40FF00]">*</span>
+        Minimal fees<span className="text-[#40FF00]">*</span>
         </h3>
         <p className="w-full font-['SF_Pro_Display'] font-medium text-[16px] sm:text-[20px] leading-[120%] text-[#919191] text-center sm:text-left">
-          to minimal fees paid on card management
+        Pay less on card management and transactions
         </p>
       </div>
 
@@ -38,8 +38,8 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ className = ''
       {/* Feature 3 */}
       <div className="flex flex-col items-center sm:items-start gap-[3px] w-full sm:w-[260px]">
         {/* Country Flags Container - Simplified */}
-        <div className="flex flex-row items-start p-0 isolation-isolate w-[70px] h-[32px]">
-          {/* Nigeria Flag - Div */} 
+        {/* <div className="flex flex-row items-start p-0 isolation-isolate w-[70px] h-[32px]">
+          {/* Nigeria Flag - Div 
           <div
             style={{ 
               backgroundImage: `url('/assets/images/Nigeria-logo copy.svg')`,
@@ -50,7 +50,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ className = ''
             aria-label="Nigeria Flag"
           />
           
-          {/* Ghana Flag - Div */}
+          {/* Ghana Flag - Div 
           <div
             style={{ 
               backgroundImage: `url('/assets/images/Ghana-logo copy.svg')`,
@@ -61,7 +61,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ className = ''
             aria-label="Ghana Flag"
           />
           
-          {/* Kenya Flag - Div */}
+          {/* Kenya Flag - Div
           <div
             style={{ 
               backgroundImage: `url('/assets/images/Kenya-logo copy.svg')`,
@@ -71,9 +71,13 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ className = ''
             className="w-[32px] h-[32px] bg-[#151515] bg-no-repeat box-border flex-none order-2 flex-grow-0 z-[0] shadow-[0px_0px_0.571429px_rgba(66,71,76,0.32),0px_4.57143px_6.85714px_rgba(66,71,76,0.08)] rounded-[464.8px]"
             aria-label="Kenya Flag"
           />
-        </div>
+        </div> */}
+           <h3 className="w-full font-['SF_Pro_Display'] font-semibold text-[28px] sm:text-[32px] leading-[100%] text-[#1F1F1F] text-center sm:text-left">
+           Works in Nigeria
+        </h3>
+        
         <p className="w-full font-['SF_Pro_Display'] font-medium text-[16px] sm:text-[20px] leading-[120%] text-[#919191] text-center sm:text-left">
-          our card works in Nigeria, other countries soon
+        Expanding to more countries soon
         </p>
       </div>
     </div>

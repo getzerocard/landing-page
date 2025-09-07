@@ -30,18 +30,18 @@ export const TypingText: React.FC<TypingTextProps> = ({
       
       if (isDeleting) {
         // Deleting effect
-        setCurrentText(fullText.substring(0, currentText.length - 1));
+        setCurrentText(fullText.substring(0, currentText?.length - 1));
         setSpeed(deletingSpeed);
         
         // When fully deleted
         if (currentText === '') {
           setIsDeleting(false);
-          setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length);
+          setCurrentIndex((prevIndex) => (prevIndex + 1) % texts?.length);
           setSpeed(typingSpeed);
         }
       } else {
         // Typing effect
-        setCurrentText(fullText.substring(0, currentText.length + 1));
+        setCurrentText(fullText.substring(0, currentText?.length + 1));
         
         // When fully typed
         if (currentText === fullText) {
