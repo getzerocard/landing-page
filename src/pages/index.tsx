@@ -21,11 +21,16 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>ZeroCard</title>
-        <meta name="description" content="Spend crypto like cash with ZeroCard" />
+        <title>Zerocard</title>
+        <meta name="description" content="Spend crypto like cash with Zerocard" />
       </Head>
-      <div className="min-h-screen flex flex-col p-4 relative">
-        <div className="flex-grow">
+      <div className="min-h-screen flex flex-col p-4 relative overflow-hidden">
+        {/* Animated Gradient Background */}
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-[#40FF00] rounded-full filter blur-[100px] opacity-15 animate-blob"></div>
+        </div>
+        
+        <div className="flex-grow relative z-10">
           <CenteredLogo />
           <Hero onReserveCardClick={handleOpenModal} />
           <FeaturesSection />

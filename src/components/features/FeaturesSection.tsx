@@ -73,7 +73,7 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ className = ''
           />
         </div>
         <p className="w-full font-['SF_Pro_Display'] font-medium text-[16px] sm:text-[20px] leading-[120%] text-[#919191] text-center sm:text-left">
-          our card works in Nigeria, other countries soon
+          our card works in 150+ countries
         </p>
       </div>
     </div>

@@ -9,7 +9,7 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
   return (
     <footer 
-      className={`w-full absolute md:bottom-[0px] bottom-[-300px] left-1/2 transform -translate-x-1/2 md:w-auto flex flex-col md:flex-row items-center gap-3 ${className}`}
+      className={`w-full flex flex-col md:flex-row items-center justify-center gap-3 py-6 px-4 ${className}`}
     >
       {/* Terms of Use Link */}
       <Link href="/terms" className="flex flex-row items-center gap-0.5 group">
@@ -35,7 +35,7 @@ export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
       {/* Social Links Section */}
       <div className="flex flex-row items-center gap-3">
         {/* X (Twitter) Link */}
-        <Link href="https://x.com/yourhandle" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-1 group">
+        <Link href="https://x.com/getzerocard" target="_blank" rel="noopener noreferrer" className="flex flex-row items-center gap-1 group">
           <div className="w-[18px] h-[18px]">
             <Image 
               src="/assets/images/X-logo.svg"
@@ -50,7 +50,7 @@ export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
         </Link>
 
         {/* Reach Out Link */}
-        <Link href="mailto:support@example.com" className="flex flex-row items-center gap-1 group">
+        <Link href="mailto:dayo@getzerocard.xyz" className="flex flex-row items-center gap-1 group">
           <div className="w-[18px] h-[18px]">
             <Image 
               src="/assets/images/email.svg"
@@ -67,21 +67,6 @@ export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
 
       {/* Divider 2 - Hidden on mobile */}
       <div className="hidden md:block w-[1px] h-[23px] bg-[#BABABA]" />
-
-      {/* Reserve Card Link */}
-      <Link href="#reserve" className="flex flex-row items-center gap-1 group">
-        <div className="w-[18px] h-[18px]">
-          <Image 
-            src="/assets/images/zerologo-black.svg"
-            alt="Zero Logo"
-            width={18}
-            height={18}
-          />
-        </div>
-        <span className="font-['SF_Pro_Text'] font-medium text-[14px] leading-[22px] text-[#1F1F1F] group-hover:text-primary transition-colors">
-          Reserve a card
-        </span>
-      </Link>
     </footer>
   );
 };
