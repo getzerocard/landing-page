@@ -6,16 +6,15 @@ interface FeaturesSectionProps {
 }
 
 export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ className = '' }) => {
-  // New top position = Hero top (240px) + Hero height (241.51px) + Gap (124px) = ~606px
   return (
-    <div className={`w-full max-w-[741px] px-4 sm:px-0 mx-auto h-auto absolute left-1/2 -translate-x-1/2 md:top-[680px] top-[570px] flex flex-col sm:flex-row items-center gap-5 sm:gap-6 ${className}`}>
+    <div className={`w-full max-w-[741px] px-4 sm:px-0 mx-auto mt-12 sm:mt-20 md:mt-24 flex flex-col sm:flex-row items-center gap-8 sm:gap-6 ${className}`}>
       {/* Feature 1 */}
       <div className="flex flex-col items-center sm:items-start gap-[3px] w-full sm:w-[207px]">
         <h3 className="w-full font-['SF_Pro_Display'] font-semibold text-[28px] sm:text-[32px] leading-[100%] text-[#1F1F1F] text-center sm:text-left">
-          1.5x
+        ⚡️ instantly
         </h3>
         <p className="w-full font-['SF_Pro_Display'] font-medium text-[16px] sm:text-[20px] leading-[120%] text-[#919191] text-center sm:text-left">
-          faster than your regular debit cards
+          spend crypto onchain, no conversion
         </p>
       </div>
 
@@ -25,10 +24,10 @@ export const FeaturesSection: React.FC<FeaturesSectionProps> = ({ className = ''
       {/* Feature 2 */}
       <div className="flex flex-col items-center sm:items-start gap-[3px] w-full sm:w-[219px]">
         <h3 className="w-full font-['SF_Pro_Display'] font-semibold text-[28px] sm:text-[32px] leading-[100%] text-[#1F1F1F] text-center sm:text-left">
-          zero fees<span className="text-[#40FF00]">*</span>
+          clockwork<span className="text-[#40FF00]">*</span>
         </h3>
         <p className="w-full font-['SF_Pro_Display'] font-medium text-[16px] sm:text-[20px] leading-[120%] text-[#919191] text-center sm:text-left">
-          to minimal fees paid on card management
+          24/7 spending, no banking hours
         </p>
       </div>
 

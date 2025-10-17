@@ -39,11 +39,11 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((
   },
   ref
 ) => {
-  const baseStyles = 'flex flex-row justify-center items-center px-4 py-3 gap-2 rounded-full font-medium text-sm leading-tight text-center transition-all';
+  const baseStyles = 'flex flex-row justify-center items-center px-4 sm:px-5 py-2.5 sm:py-3 gap-2 rounded-full font-medium text-[14px] sm:text-sm leading-tight text-center transition-all whitespace-nowrap';
   
   const variantStyles = {
-    primary: 'bg-primary border border-primary shadow-[0_11px_12px_rgba(0,0,0,0.1),inset_0_-4px_0_#38E100] text-secondary hover:shadow-[0_15px_15px_rgba(0,0,0,0.15),inset_0_-6px_0_#38E100] hover:-translate-y-0.5',
-    secondary: 'bg-white shadow-[0_11px_12px_rgba(0,0,0,0.1)] text-secondary hover:shadow-[0_15px_15px_rgba(0,0,0,0.15)] hover:-translate-y-0.5'
+    primary: 'bg-primary border border-primary shadow-[0_8px_12px_rgba(0,0,0,0.1),inset_0_-3px_0_#38E100] sm:shadow-[0_11px_12px_rgba(0,0,0,0.1),inset_0_-4px_0_#38E100] text-secondary hover:shadow-[0_15px_15px_rgba(0,0,0,0.15),inset_0_-6px_0_#38E100] hover:-translate-y-0.5',
+    secondary: 'bg-white shadow-[0_8px_12px_rgba(0,0,0,0.1)] sm:shadow-[0_11px_12px_rgba(0,0,0,0.1)] text-secondary hover:shadow-[0_15px_15px_rgba(0,0,0,0.15)] hover:-translate-y-0.5'
   };
 
   return (

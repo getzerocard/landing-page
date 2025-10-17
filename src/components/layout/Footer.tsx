@@ -50,7 +50,7 @@ export const Footer: React.FC<FooterProps> = ({ className = '' }) => {
         </Link>
 
         {/* Reach Out Link */}
-        <Link href="mailto:dayo@getzerocard.xyz" className="flex flex-row items-center gap-1 group">
+        <Link href="mailto:support@getzerocard.xyz" className="flex flex-row items-center gap-1 group">
           <div className="w-[18px] h-[18px]">
             <Image 
               src="/assets/images/email.svg"

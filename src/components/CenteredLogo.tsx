@@ -10,7 +10,7 @@ interface CenteredLogoProps {
  */
 export const CenteredLogo: React.FC<CenteredLogoProps> = ({ className = '' }) => {
   return (
-    <div className={`w-full flex justify-center mt-[80px] ${className}`}>
+    <div className={`w-full flex justify-center pt-12 sm:pt-16 md:pt-20 ${className}`}>
       <Image 
         src="/assets/images/logo.svg"
         alt="Logo"
