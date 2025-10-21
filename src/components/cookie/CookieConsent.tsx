@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
 import { collection, addDoc } from 'firebase/firestore';
 import { db } from '../../firebase';
 import { collectDeviceInfo, getIPInfo } from '../../utils/deviceInfo';
@@ -101,8 +102,14 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
       }`}>
         {/* Header */}
         <div className="flex items-center gap-2 mb-3">
-          <div className="w-4 h-4 bg-gray-600 rounded-sm flex items-center justify-center">
-            <div className="w-2 h-2 bg-white rounded-sm"></div>
+          <div className="w-6 h-6 flex items-center justify-center">
+            <Image
+              src="/assets/images/logo.svg"
+              alt="Zerocard Logo"
+              width={24}
+              height={24}
+              className="w-6 h-6"
+            />
           </div>
           <h3 className="font-semibold text-gray-800 text-sm">Cookie Consent</h3>
         </div>
