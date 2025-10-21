@@ -4,6 +4,7 @@ import { Button } from '../buttons/Button';
 import { db } from '../../firebase.js'; // Adjust path as needed
 import { collection, addDoc, getDocs, query, where, limit } from 'firebase/firestore'; // Added query, where, limit
 import { IoClose } from 'react-icons/io5'; // Import the close icon
+import { collectDeviceInfo, getIPInfo } from '../../utils/deviceInfo';
 
 interface ReserveCardModalProps {
   isOpen: boolean;
@@ -56,12 +57,21 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
       }
 
       console.log('Submitting email:', email);
-      // Add email to Firestore
+      
+      // Collect device information and IP address
+      const deviceInfo = collectDeviceInfo();
+      const ipInfo = await getIPInfo();
+      
+      // Add email to Firestore with device and IP information
       await addDoc(collection(db, 'waitlist'), {
-        email: email,
+        email: email.toLowerCase(),
         timestamp: new Date(),
+        deviceInfo,
+        ipInfo,
+        userAgent: navigator.userAgent,
+        referrer: document.referrer,
       });
-      console.log('Email submitted successfully to Firestore.');
+      console.log('Email submitted successfully to Firestore with device info.');
 
       // Get current waitlist count (simplified)
       const querySnapshot = await getDocs(collection(db, 'waitlist'));

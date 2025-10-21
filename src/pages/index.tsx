@@ -6,6 +6,7 @@ import Hero from '../components/hero/Hero';
 import FeaturesSection from '../components/features/FeaturesSection';
 import Footer from '../components/layout/Footer';
 import { ReserveCardModal } from '@/components/popups/ReserveCardModal';
+import CookieConsent from '../components/cookie/CookieConsent';
 
 const Home: NextPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -38,6 +39,7 @@ const Home: NextPage = () => {
         <Footer />
       </div>
       <ReserveCardModal isOpen={isModalOpen} onClose={handleCloseModal} />
+      <CookieConsent />
     </>
   );
 };
