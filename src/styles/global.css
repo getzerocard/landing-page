@@ -1,4 +1,4 @@
-@import url('/fonts/sf-pro-display.css');
+/* Font CSS is now loaded via preload in _document.tsx */
 
 @tailwind base;
 
@@ -8,12 +8,38 @@
 
 @layer base {
   html, body {
-    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     height: 100%;
     margin: 0;
     padding: 0;
     color: theme('colors.secondary.DEFAULT');
     background-color: theme('colors.background');
+    /* Prevent font loading layout shifts */
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  /* Font loading optimization */
+  html {
+    /* Hide text until fonts are loaded to prevent FOUT */
+    visibility: hidden;
+  }
+  
+  html.fonts-loaded {
+    visibility: visible;
+  }
+  
+  /* Fallback: show text after 3 seconds even if fonts haven't loaded */
+  html:not(.fonts-loaded) {
+    animation: show-after-timeout 3s forwards;
+  }
+  
+  @keyframes show-after-timeout {
+    to {
+      visibility: visible;
+    }
   }
   
   body {
