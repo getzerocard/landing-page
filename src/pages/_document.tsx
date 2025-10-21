@@ -39,7 +39,11 @@ export default function Document() {
           rel="preload"
           href="/fonts/sf-pro-display.css"
           as="style"
-          onLoad="this.onload=null;this.rel='stylesheet'"
+          onLoad={(e) => {
+            const target = e.target as HTMLLinkElement;
+            target.onload = null;
+            target.rel = 'stylesheet';
+          }}
         />
         <noscript>
           <link rel="stylesheet" href="/fonts/sf-pro-display.css" />

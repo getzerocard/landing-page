@@ -6,13 +6,11 @@ import { collectDeviceInfo, getIPInfo } from '../../utils/deviceInfo';
 interface CookieConsentProps {
   onAccept?: () => void;
   onReject?: () => void;
-  onMoreChoices?: () => void;
 }
 
 export const CookieConsent: React.FC<CookieConsentProps> = ({
   onAccept,
-  onReject,
-  onMoreChoices
+  onReject
 }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
@@ -89,9 +87,6 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
     }, 200);
   };
 
-  const handleMoreChoices = () => {
-    onMoreChoices?.();
-  };
 
   if (!isVisible) return null;
 
