@@ -45,10 +45,8 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
         userAgent: navigator.userAgent,
         referrer: document.referrer,
       });
-      
-      console.log('Cookie consent data saved to Firebase');
     } catch (error) {
-      console.error('Failed to save cookie consent data:', error);
+      // Silent error handling
     }
     
     setTimeout(() => {
@@ -75,10 +73,8 @@ export const CookieConsent: React.FC<CookieConsentProps> = ({
         userAgent: navigator.userAgent,
         referrer: document.referrer,
       });
-      
-      console.log('Cookie rejection data saved to Firebase');
     } catch (error) {
-      console.error('Failed to save cookie rejection data:', error);
+      // Silent error handling
     }
     
     setTimeout(() => {

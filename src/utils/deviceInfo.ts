@@ -79,14 +79,13 @@ export const getIPAddress = async (): Promise<string> => {
           return data.ip || data.query || 'Unknown';
         }
       } catch (error) {
-        console.warn(`Failed to get IP from ${service}:`, error);
+        // Try next service
         continue;
       }
     }
 
     return 'Unknown';
   } catch (error) {
-    console.error('Failed to get IP address:', error);
     return 'Unknown';
   }
 };
@@ -118,7 +117,6 @@ export const getIPInfo = async (): Promise<IPInfo> => {
     const ip = await getIPAddress();
     return { ip };
   } catch (error) {
-    console.error('Failed to get IP info:', error);
     const ip = await getIPAddress();
     return { ip };
   }

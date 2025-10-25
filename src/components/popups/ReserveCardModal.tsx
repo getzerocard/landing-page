@@ -55,8 +55,6 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
         setIsLoading(false);
         return;
       }
-
-      console.log('Submitting email:', email);
       
       // Collect device information and IP address
       const deviceInfo = collectDeviceInfo();
@@ -71,18 +69,14 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
         userAgent: navigator.userAgent,
         referrer: document.referrer,
       });
-      console.log('Email submitted successfully to Firestore with device info.');
 
       // Get current waitlist count (simplified)
       const querySnapshot = await getDocs(collection(db, 'waitlist'));
       const count = querySnapshot.size;
       setWaitlistNumber(count);
-      console.log('Waitlist number:', count);
       setIsSubmitted(true);
     } catch (err) {
-      console.error("Error adding document: ", err);
       setError('Failed to submit email. Please try again.');
-      console.log('Email submission failed:', err);
     } finally {
       setIsLoading(false);
     }
@@ -94,8 +88,7 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
         // Optional: Show a temporary "Copied!" message
         alert('Link copied to clipboard!');
       })
-      .catch(err => {
-        console.error('Failed to copy text: ', err);
+      .catch(() => {
         setError('Failed to copy link.');
       });
   };

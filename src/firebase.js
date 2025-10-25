@@ -30,10 +30,8 @@ const requiredEnvVars = [
 const missingVars = requiredEnvVars.filter(varName => !process.env[varName]);
 
 if (missingVars.length > 0) {
-  console.error('❌ Missing Firebase environment variables:', missingVars);
-  console.error('📝 Please create a .env.local file with your Firebase configuration.');
-  console.error('🔗 Get your config from: Firebase Console > Project Settings > General > Your apps');
-  console.error('📋 Required variables:', requiredEnvVars.join(', '));
+  // Firebase environment variables are missing
+  // Please check your .env.local file
 }
 
 // Initialize Firebase
