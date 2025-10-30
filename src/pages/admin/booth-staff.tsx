@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button } from '../../components/buttons/Button';
-import { generateClaimSignature, formatClaimCode, generateNonce, hashEmail } from '../../utils/claimSignature';
+import { generateClaimSignature, formatClaimCode, generateNonce } from '../../utils/claimSignature';
 import { hasEmailClaimed, getContractBalance } from '../../utils/web3';
 import { db } from '../../firebase';
 import { collection, addDoc, query, where, getDocs, doc, updateDoc } from 'firebase/firestore';
@@ -60,7 +60,7 @@ const BoothStaffAdmin: React.FC = () => {
     });
 
     const blob = await qrCode.getRawData('png');
-    if (blob) {
+    if (blob && blob instanceof Blob) {
       const reader = new FileReader();
       reader.onloadend = () => {
         setQrCodeDataUrl(reader.result as string);
@@ -98,6 +98,9 @@ const BoothStaffAdmin: React.FC = () => {
       }
 
       const userDoc = waitlistSnapshot.docs[0];
+      if (!userDoc) {
+        throw new Error('Email not found in waitlist. User must join waitlist first.');
+      }
       const userData = userDoc.data();
 
       // Check if user won 1 USDC
@@ -120,12 +123,15 @@ const BoothStaffAdmin: React.FC = () => {
       const existingCodes = await getDocs(claimCodeQuery);
 
       if (!existingCodes.empty) {
-        const existingCode = existingCodes.docs[0].data();
-        const code = formatClaimCode(existingCode.signature, existingCode.nonce);
-        setClaimCode(code);
-        await generateQRCode(code);
-        setSuccess('Claim code already exists for this email. Showing existing code.');
-        return;
+        const existingCodeDoc = existingCodes.docs[0];
+        if (existingCodeDoc) {
+          const existingCode = existingCodeDoc.data();
+          const code = formatClaimCode(existingCode.signature, existingCode.nonce);
+          setClaimCode(code);
+          await generateQRCode(code);
+          setSuccess('Claim code already exists for this email. Showing existing code.');
+          return;
+        }
       }
 
       // Generate nonce

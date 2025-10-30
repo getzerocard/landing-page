@@ -29,11 +29,9 @@ export const BASE_SEPOLIA = {
 // Smart Contract ABI (minimal interface for claiming)
 const REWARD_CLAIM_ABI = [
   'function claimReward(bytes32 emailHash, address walletAddress, uint256 nonce, bytes signature) external',
-  'function hasClaimed(bytes32) external view returns (bool)',
-  'function usedNonces(uint256) external view returns (bool)',
-  'function getBalance() external view returns (uint256)',
   'function hasEmailClaimed(bytes32 emailHash) external view returns (bool)',
   'function isNonceUsed(uint256 nonce) external view returns (bool)',
+  'function getBalance() external view returns (uint256)',
   'event RewardClaimed(bytes32 indexed emailHash, address indexed recipient, uint256 amount, uint256 nonce)'
 ];
 
@@ -70,7 +68,8 @@ export async function hasEmailClaimed(email: string): Promise<boolean> {
   try {
     const contract = getRewardClaimContract();
     const emailHash = hashEmail(email);
-    return await contract.hasEmailClaimed(emailHash);
+    const result = await (contract as any).hasEmailClaimed(emailHash);
+    return result as boolean;
   } catch (error) {
     console.error('Error checking claim status:', error);
     throw error;
@@ -85,7 +84,7 @@ export async function hasEmailClaimed(email: string): Promise<boolean> {
 export async function isNonceUsed(nonce: number): Promise<boolean> {
   try {
     const contract = getRewardClaimContract();
-    return await contract.isNonceUsed(nonce);
+    return await (contract as any).isNonceUsed(nonce);
   } catch (error) {
     console.error('Error checking nonce status:', error);
     throw error;
@@ -99,7 +98,7 @@ export async function isNonceUsed(nonce: number): Promise<boolean> {
 export async function getContractBalance(): Promise<string> {
   try {
     const contract = getRewardClaimContract();
-    const balance = await contract.getBalance();
+    const balance = await (contract as any).getBalance();
     // USDC has 6 decimals
     return ethers.formatUnits(balance, 6);
   } catch (error) {
@@ -145,13 +144,13 @@ export async function claimUSDCReward(
     }
 
     // Check if already claimed
-    const alreadyClaimed = await contract.hasEmailClaimed(emailHash);
+    const alreadyClaimed = await (contract as any).hasEmailClaimed(emailHash);
     if (alreadyClaimed) {
       throw new Error('This email has already claimed a reward');
     }
 
     // Check if nonce is already used
-    const nonceUsed = await contract.isNonceUsed(nonce);
+    const nonceUsed = await (contract as any).isNonceUsed(nonce);
     if (nonceUsed) {
       throw new Error('This claim code has already been used');
     }
@@ -222,7 +221,7 @@ export async function executeClaimWithWallet(
     const emailHash = hashEmail(email);
 
     // Execute claim transaction
-    const tx = await contract.claimReward(
+    const tx = await (contract as any).claimReward(
       emailHash,
       walletAddress,
       nonce,
