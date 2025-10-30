@@ -5,6 +5,7 @@ import { db } from '../../firebase.js'; // Adjust path as needed
 import { collection, addDoc, getDocs, query, where, limit } from 'firebase/firestore'; // Added query, where, limit
 import { IoClose } from 'react-icons/io5'; // Import the close icon
 import { collectDeviceInfo, getIPInfo } from '../../utils/deviceInfo';
+import { GiftModal } from './GiftModal';
 
 interface ReserveCardModalProps {
   isOpen: boolean;
@@ -17,6 +18,8 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
   const [waitlistNumber, setWaitlistNumber] = useState<number | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showGiftModal, setShowGiftModal] = useState(false);
+  const [submittedEmail, setSubmittedEmail] = useState('');
 
   const shareLink = 'https://getzerocard.xyz'; // Replace with actual link if different
 
@@ -28,6 +31,8 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
       setWaitlistNumber(null);
       setError(null);
       setIsLoading(false);
+      setShowGiftModal(false);
+      setSubmittedEmail('');
     }
   }, [isOpen]);
 
@@ -75,6 +80,12 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
       const count = querySnapshot.size;
       setWaitlistNumber(count);
       setIsSubmitted(true);
+      
+      // Store email and show gift modal after a short delay
+      setSubmittedEmail(email.toLowerCase());
+      setTimeout(() => {
+        setShowGiftModal(true);
+      }, 1500);
     } catch (err) {
       setError('Failed to submit email. Please try again.');
     } finally {
@@ -93,10 +104,15 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
       });
   };
 
+  const handleCloseGiftModal = () => {
+    setShowGiftModal(false);
+  };
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50">
+    <>
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50">
       <div className="box-border flex flex-row items-center p-6 gap-2.5 bg-[#F7F7F7] shadow-[0px_3.53px_15.87px_-3.53px_rgba(106,128,48,0.25)] rounded-[20px] w-full max-w-md sm:w-[398px] relative">
         <div className="flex flex-col items-start gap-8 flex-1 w-full">
           {/* Header */}
@@ -179,6 +195,14 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
         </div>
       </div>
     </div>
+
+      {/* Gift Modal */}
+      <GiftModal 
+        isOpen={showGiftModal} 
+        onClose={handleCloseGiftModal}
+        userEmail={submittedEmail}
+      />
+    </>
   );
 };
 
