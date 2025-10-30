@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Squircle } from '@squircle-js/react';
 
 interface ReadWhyLinkProps {
   href?: string;
@@ -14,10 +13,8 @@ export const ReadWhyLink: React.FC<ReadWhyLinkProps> = ({
 }) => {
   return (
     <Link href={href}>
-      <Squircle
-        cornerRadius={10}
-        cornerSmoothing={1}
-        className={`inline-flex flex-row justify-center items-center py-2 px-3 gap-2 bg-white shadow-[0px_1px_1px_rgba(0,0,0,0.05),inset_0px_1px_1px_rgba(129,129,129,0.15)] transition-all hover:shadow-[0px_2px_4px_rgba(0,0,0,0.1),inset_0px_1px_1px_rgba(129,129,129,0.15)] hover:translate-y-[-2px] cursor-pointer ${className}`}
+      <div
+        className={`inline-flex flex-row justify-center items-center py-2 px-3 gap-2 bg-white rounded-[10px] shadow-[0px_1px_1px_rgba(0,0,0,0.05),inset_0px_1px_1px_rgba(129,129,129,0.15)] transition-all hover:shadow-[0px_2px_4px_rgba(0,0,0,0.1),inset_0px_1px_1px_rgba(129,129,129,0.15)] hover:translate-y-[-2px] cursor-pointer ${className}`}
       >
         <span className="font-['SF_Pro_Display'] font-normal text-[14px] sm:text-[16px] leading-[110%] sm:leading-[93%] text-[#797979] text-center whitespace-nowrap">
           Read why we built zerocard here
@@ -30,7 +27,7 @@ export const ReadWhyLink: React.FC<ReadWhyLinkProps> = ({
             height={17.51}
           />
         </div>
-      </Squircle>
+      </div>
     </Link>
   );
 };

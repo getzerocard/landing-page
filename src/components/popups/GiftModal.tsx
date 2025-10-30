@@ -4,6 +4,9 @@ import { Button } from '../buttons/Button';
 import { db } from '../../firebase.js';
 import { doc, updateDoc, collection, query, where, getDocs, runTransaction } from 'firebase/firestore';
 import { IoClose } from 'react-icons/io5';
+import { SocialShare } from './SocialShare';
+import { executeClaimWithWallet, switchToBaseNetwork, getExplorerLink } from '../../utils/web3';
+import { parseClaimCode } from '../../utils/claimSignature';
 
 interface GiftModalProps {
   isOpen: boolean;
@@ -25,25 +28,25 @@ const GIFTS: Record<GiftType, Gift> = {
     type: '1 USDC',
     icon: '💵',
     message: 'You won 1 USDC!',
-    description: 'Congratulations! Your reward will be credited to your account when you activate your card.'
+    description: 'Congratulations! Your reward will be credited to your account when you order your card.'
   },
   '20% Off Card Fees': {
     type: '20% Off Card Fees',
     icon: '🎟️',
     message: 'You won 20% Off Card Fees!',
-    description: 'Amazing! Enjoy 20% discount on your card fees when you order your Zero Card.'
+    description: 'Amazing! Enjoy 20% discount on your card fees when you order your Zerocard. Present your email at our booth to claim this reward.'
   },
   'Energy Drink': {
     type: 'Energy Drink',
     icon: '⚡',
     message: 'You won an Energy Drink!',
-    description: 'Nice! Claim your energy drink when you pick up your Zero Card.'
+    description: 'Nice! Visit our booth and present your email to claim your energy drink.'
   },
   'Better Luck Next Time': {
     type: 'Better Luck Next Time',
     icon: '🎯',
     message: 'Better Luck Next Time!',
-    description: 'Keep an eye out for more exciting rewards coming soon with Zero Card.'
+    description: 'Keep an eye out for more exciting rewards coming soon with Zerocard.'
   }
 };
 
@@ -52,6 +55,14 @@ export const GiftModal: React.FC<GiftModalProps> = ({ isOpen, onClose, userEmail
   const [selectedGift, setSelectedGift] = useState<Gift | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [hasStarted, setHasStarted] = useState(false);
+  
+  // USDC claim states
+  const [showClaimUI, setShowClaimUI] = useState(false);
+  const [walletAddress, setWalletAddress] = useState('');
+  const [claimCode, setClaimCode] = useState('');
+  const [isClaiming, setIsClaiming] = useState(false);
+  const [claimSuccess, setClaimSuccess] = useState(false);
+  const [txHash, setTxHash] = useState<string | null>(null);
 
   useEffect(() => {
     if (isOpen && !hasStarted) {
@@ -65,6 +76,12 @@ export const GiftModal: React.FC<GiftModalProps> = ({ isOpen, onClose, userEmail
       setSelectedGift(null);
       setError(null);
       setHasStarted(false);
+      setShowClaimUI(false);
+      setWalletAddress('');
+      setClaimCode('');
+      setIsClaiming(false);
+      setClaimSuccess(false);
+      setTxHash(null);
     }
   }, [isOpen, hasStarted]);
 
@@ -175,7 +192,65 @@ export const GiftModal: React.FC<GiftModalProps> = ({ isOpen, onClose, userEmail
     }
   };
 
+  const handleClaimUSDC = async () => {
+    setIsClaiming(true);
+    setError(null);
+
+    try {
+      // Validate inputs
+      if (!walletAddress || !claimCode) {
+        throw new Error('Please enter both wallet address and claim code');
+      }
+
+      // Parse claim code
+      const { signature, nonce } = parseClaimCode(claimCode);
+      if (!signature || !nonce) {
+        throw new Error('Invalid claim code format');
+      }
+
+      // Switch to Base network if needed
+      await switchToBaseNetwork();
+
+      // Execute claim transaction
+      const receipt = await executeClaimWithWallet(
+        userEmail,
+        walletAddress,
+        signature,
+        nonce
+      );
+
+      // Update Firestore
+      const waitlistRef = collection(db, 'waitlist');
+      const q = query(waitlistRef, where('email', '==', userEmail.toLowerCase()));
+      const querySnapshot = await getDocs(q);
+      
+      if (!querySnapshot.empty && querySnapshot.docs[0]) {
+        const userDoc = querySnapshot.docs[0];
+        await updateDoc(doc(db, 'waitlist', userDoc.id), {
+          claimStatus: 'claimed',
+          claimTxHash: receipt.hash,
+          claimedAt: new Date()
+        });
+      }
+
+      setTxHash(receipt.hash);
+      setClaimSuccess(true);
+    } catch (err: any) {
+      console.error('Error claiming USDC:', err);
+      setError(err.message || 'Failed to claim USDC. Please try again.');
+    } finally {
+      setIsClaiming(false);
+    }
+  };
+
+  const handleProceedToClaim = () => {
+    setShowClaimUI(true);
+  };
+
   if (!isOpen) return null;
+
+  const isUSDCWinner = selectedGift?.type === '1 USDC';
+  const shouldShowShare = selectedGift && selectedGift.type !== 'Better Luck Next Time';
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center p-4 z-50">
@@ -225,32 +300,137 @@ export const GiftModal: React.FC<GiftModalProps> = ({ isOpen, onClose, userEmail
             </>
           ) : selectedGift ? (
             <>
-              {/* Gift Revealed State */}
-              <div className="flex flex-col items-center justify-center gap-6 self-stretch">
-                <div className="relative w-24 h-24 flex items-center justify-center">
-                  <div className="text-7xl animate-bounce-once">
-                    {selectedGift.icon}
+              {/* USDC Claim Success State */}
+              {claimSuccess && txHash ? (
+                <>
+                  <div className="flex flex-col items-center justify-center gap-6 self-stretch">
+                    <div className="relative w-24 h-24 flex items-center justify-center">
+                      <div className="text-7xl">✅</div>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <p className="font-semibold text-xl leading-6 text-black text-center">
+                        USDC Claimed Successfully!
+                      </p>
+                      <p className="font-medium text-base leading-tight text-[#919191] text-center">
+                        Your 1 USDC has been sent to your wallet.
+                      </p>
+                      <a 
+                        href={getExplorerLink(txHash)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-[#40FF00] hover:underline mt-2"
+                      >
+                        View transaction on Basescan →
+                      </a>
+                    </div>
                   </div>
-                </div>
-                <div className="flex flex-col items-center gap-2">
-                  <p className="font-semibold text-xl leading-6 text-black text-center">
-                    {selectedGift.message}
-                  </p>
-                  <p className="font-medium text-base leading-tight text-[#919191] text-center">
-                    {selectedGift.description}
-                  </p>
-                </div>
-                {error && <p className="text-red-500 text-xs text-center">{error}</p>}
-              </div>
 
-              {/* Action Button */}
-              <Button
-                variant="primary"
-                className="self-stretch"
-                onClick={onClose}
-              >
-                Continue
-              </Button>
+                  {shouldShowShare && <SocialShare giftType={selectedGift.type} />}
+
+                  <Button
+                    variant="primary"
+                    className="self-stretch"
+                    onClick={onClose}
+                  >
+                    Continue
+                  </Button>
+                </>
+              ) : isUSDCWinner && showClaimUI ? (
+                <>
+                  {/* USDC Claim Form */}
+                  <div className="flex flex-col items-start gap-6 self-stretch">
+                    <div className="flex flex-col items-center gap-2 self-stretch">
+                      <div className="text-5xl">💵</div>
+                      <p className="font-semibold text-xl leading-6 text-black text-center">
+                        Claim Your 1 USDC
+                      </p>
+                      <p className="font-medium text-sm leading-tight text-[#919191] text-center">
+                        Visit our booth to get your claim code, then enter your wallet details below
+                      </p>
+                    </div>
+
+                    <div className="flex flex-col items-start gap-2 self-stretch">
+                      <label htmlFor="wallet" className="font-medium text-sm text-[#919191]">
+                        Base Wallet Address
+                      </label>
+                      <input
+                        type="text"
+                        id="wallet"
+                        value={walletAddress}
+                        onChange={(e) => setWalletAddress(e.target.value)}
+                        placeholder="0x..."
+                        className="box-border flex flex-row items-center p-3 gap-2.5 bg-white shadow-[0px_1px_1px_rgba(0,0,0,0.05)] rounded-[10px] self-stretch font-medium text-base leading-tight text-black focus:ring-2 focus:ring-[#40FF00] focus:border-transparent outline-none"
+                      />
+                    </div>
+
+                    <div className="flex flex-col items-start gap-2 self-stretch">
+                      <label htmlFor="claimCode" className="font-medium text-sm text-[#919191]">
+                        Claim Code (from booth staff)
+                      </label>
+                      <input
+                        type="text"
+                        id="claimCode"
+                        value={claimCode}
+                        onChange={(e) => setClaimCode(e.target.value)}
+                        placeholder="Paste claim code here"
+                        className="box-border flex flex-row items-center p-3 gap-2.5 bg-white shadow-[0px_1px_1px_rgba(0,0,0,0.05)] rounded-[10px] self-stretch font-medium text-base leading-tight text-black focus:ring-2 focus:ring-[#40FF00] focus:border-transparent outline-none"
+                      />
+                    </div>
+
+                    {error && <p className="text-red-500 text-xs">{error}</p>}
+                  </div>
+
+                  <Button
+                    variant="primary"
+                    className="self-stretch"
+                    onClick={handleClaimUSDC}
+                    disabled={isClaiming}
+                  >
+                    {isClaiming ? 'Claiming...' : 'Claim USDC Now'}
+                  </Button>
+                </>
+              ) : (
+                <>
+                  {/* Gift Revealed State */}
+                  <div className="flex flex-col items-center justify-center gap-6 self-stretch">
+                    <div className="relative w-24 h-24 flex items-center justify-center">
+                      <div className="text-7xl animate-bounce-once">
+                        {selectedGift.icon}
+                      </div>
+                    </div>
+                    <div className="flex flex-col items-center gap-2">
+                      <p className="font-semibold text-xl leading-6 text-black text-center">
+                        {selectedGift.message}
+                      </p>
+                      <p className="font-medium text-base leading-tight text-[#919191] text-center">
+                        {selectedGift.description}
+                      </p>
+                    </div>
+                    {error && <p className="text-red-500 text-xs text-center">{error}</p>}
+                  </div>
+
+                  {shouldShowShare && <SocialShare giftType={selectedGift.type} />}
+
+                  {/* Action Button */}
+                  {isUSDCWinner ? (
+                    <Button
+                      variant="primary"
+                      className="self-stretch"
+                      onClick={handleProceedToClaim}
+                    >
+                      Claim Now
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="primary"
+                      className="self-stretch"
+                      onClick={onClose}
+                    >
+                      Continue
+                    </Button>
+                  )}
+                </>
+              )}
             </>
           ) : null}
         </div>

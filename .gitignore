@@ -42,3 +42,8 @@ local
 # IDE / Editor directories
 .vscode/
 .idea/
+
+# Hardhat files
+cache/
+artifacts/
+typechain-types/
