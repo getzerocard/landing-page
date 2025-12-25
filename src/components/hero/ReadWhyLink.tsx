@@ -1,7 +1,12 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Squircle } from '@squircle-js/react';
+import dynamic from 'next/dynamic';
+
+const Squircle = dynamic(
+  () => import('@squircle-js/react').then((mod) => mod.Squircle),
+  { ssr: false }
+);
 
 interface ReadWhyLinkProps {
   href?: string;

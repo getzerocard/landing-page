@@ -1,8 +1,13 @@
 import '../styles/global.css';
 import type { AppProps } from 'next/app';
-import { SquircleNoScript } from '@squircle-js/react';
+import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useEffect } from 'react';
+
+const SquircleNoScript = dynamic(
+  () => import('@squircle-js/react').then((mod) => mod.SquircleNoScript),
+  { ssr: false }
+);
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
