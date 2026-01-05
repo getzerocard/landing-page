@@ -33,6 +33,12 @@ yarn-error.log*
 .env.development
 .env.production
 
+# Firebase service account key (keep secure!)
+serviceAccountKey.json
+
+# Local export script (keep local only)
+scripts/export-waitlist.js
+
 # local folder
 local
 

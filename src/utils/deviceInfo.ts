@@ -92,32 +92,77 @@ export const getIPAddress = async (): Promise<string> => {
 
 /**
  * Gets basic IP information including location data
+ * Returns minimal info if API fails - never throws
  */
 export const getIPInfo = async (): Promise<IPInfo> => {
   try {
-    const response = await fetch('https://ipapi.co/json/', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-      },
-    });
+    // Add timeout to prevent hanging
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
 
-    if (response.ok) {
-      const data = await response.json();
-      return {
-        ip: data.ip || 'Unknown',
-        country: data.country_name,
-        region: data.region,
-        city: data.city,
-        timezone: data.timezone,
-      };
+    try {
+      const response = await fetch('https://ipapi.co/json/', {
+        method: 'GET',
+        headers: {
+          'Accept': 'application/json',
+        },
+        signal: controller.signal,
+      });
+
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        const data = await response.json();
+        return {
+          ip: data.ip || 'Unknown',
+          country: data.country_name,
+          region: data.region,
+          city: data.city,
+          timezone: data.timezone,
+        };
+      }
+    } catch (fetchError) {
+      clearTimeout(timeoutId);
+      // Fall through to fallback
     }
 
-    // Fallback to basic IP
-    const ip = await getIPAddress();
-    return { ip };
+    // Fallback to basic IP with timeout
+    try {
+      const ipController = new AbortController();
+      const ipTimeoutId = setTimeout(() => ipController.abort(), 2000);
+      
+      const ipServices = [
+        'https://api.ipify.org?format=json',
+        'https://ipapi.co/json/',
+      ];
+
+      for (const service of ipServices) {
+        try {
+          const response = await fetch(service, {
+            method: 'GET',
+            headers: { 'Accept': 'application/json' },
+            signal: ipController.signal,
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            clearTimeout(ipTimeoutId);
+            return { ip: data.ip || data.query || 'Unknown' };
+          }
+        } catch {
+          continue;
+        }
+      }
+      
+      clearTimeout(ipTimeoutId);
+    } catch {
+      // Ignore fallback errors
+    }
+
+    // Return minimal info if all fails
+    return { ip: 'Unknown' };
   } catch (error) {
-    const ip = await getIPAddress();
-    return { ip };
+    // Never throw - always return something
+    return { ip: 'Unknown' };
   }
 };

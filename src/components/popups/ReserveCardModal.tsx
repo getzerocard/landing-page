@@ -56,9 +56,21 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
         return;
       }
       
-      // Collect device information and IP address
+      // Collect device information (synchronous, always works)
       const deviceInfo = collectDeviceInfo();
-      const ipInfo = await getIPInfo();
+      
+      // Get IP info with timeout - don't block submission if it fails
+      let ipInfo = { ip: 'Unknown' };
+      try {
+        const ipInfoPromise = getIPInfo();
+        const timeoutPromise = new Promise((_, reject) => 
+          setTimeout(() => reject(new Error('Timeout')), 5000)
+        );
+        ipInfo = await Promise.race([ipInfoPromise, timeoutPromise]) as typeof ipInfo;
+      } catch (ipError) {
+        // IP info is optional - continue without it
+        console.warn('IP info fetch failed, continuing without it:', ipError);
+      }
       
       // Add email to Firestore with device and IP information
       await addDoc(collection(db, 'waitlist'), {
@@ -70,13 +82,31 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
         referrer: document.referrer,
       });
 
-      // Get current waitlist count (simplified)
-      const querySnapshot = await getDocs(collection(db, 'waitlist'));
-      const count = querySnapshot.size;
-      setWaitlistNumber(count);
+      // Try to get approximate waitlist count (non-blocking)
+      // Use a separate query that doesn't block the submission
+      getDocs(collection(db, 'waitlist'))
+        .then((snapshot) => {
+          setWaitlistNumber(snapshot.size);
+        })
+        .catch((countError) => {
+          // Count is optional - don't show error to user
+          console.warn('Failed to get waitlist count:', countError);
+        });
+      
       setIsSubmitted(true);
-    } catch (err) {
-      setError('Failed to submit email. Please try again.');
+    } catch (err: any) {
+      console.error('Waitlist submission error:', err);
+      
+      // Provide more specific error messages
+      if (err?.code === 'permission-denied') {
+        setError('Permission denied. Please check your connection.');
+      } else if (err?.code === 'unavailable') {
+        setError('Service temporarily unavailable. Please try again.');
+      } else if (err?.message?.includes('network') || err?.message?.includes('fetch')) {
+        setError('Network error. Please check your connection and try again.');
+      } else {
+        setError('Failed to submit email. Please try again.');
+      }
     } finally {
       setIsLoading(false);
     }
@@ -152,7 +182,7 @@ export const ReserveCardModal: React.FC<ReserveCardModalProps> = ({ isOpen, onCl
               <div className="flex flex-col items-start gap-2 self-stretch text-center sm:text-left">
                  {/* Background decorative vectors - simplified or omitted for clarity */}
                 <p className="font-semibold text-xl leading-6 text-black self-stretch">
-                  Thanks 🎉 you're number {waitlistNumber || '...'} on the waitlist
+                  {waitlistNumber ? `Thanks 🎉 you're number ${waitlistNumber} on the waitlist` : 'Thanks 🎉 You\'re on the waitlist!'}
                 </p>
                 <p className="font-medium text-base leading-tight text-[#919191] self-stretch">
                   We are happy to spend crypto like cash alongside with you
