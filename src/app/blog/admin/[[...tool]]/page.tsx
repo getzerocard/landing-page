@@ -14,7 +14,16 @@ import dynamicImport from 'next/dynamic'
 export const dynamic = 'force-dynamic'
 export const dynamicParams = true
 
-export { metadata, viewport } from 'next-sanity/studio'
+// Define metadata manually for compatibility
+export const metadata = {
+  title: 'Sanity Studio',
+  description: 'Sanity Studio',
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+}
 
 // Dynamically import NextStudio to avoid SSR issues during build
 // Config is imported inside the component to prevent build-time evaluation

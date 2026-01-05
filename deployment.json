@@ -1,9 +1,0 @@
-{
-  "network": "base",
-  "chainId": 8453,
-  "contractAddress": "0x28cbD168c219A93CA438c46e18858F22071eF6b4",
-  "usdcAddress": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-  "boothStaff": "0x27cEe32550DcC30De5a23551bAF7de2f3b0b98A0",
-  "deployer": "0x27cEe32550DcC30De5a23551bAF7de2f3b0b98A0",
-  "deployedAt": "2025-10-30T10:09:22.526Z"
-}
