@@ -16,6 +16,16 @@ export default withBundleAnalyzer({
   // So, the source code is "basePath-ready".
   // You can remove `basePath` if you don't need it.
   reactStrictMode: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'cdn.sanity.io',
+        port: '',
+        pathname: '/images/**',
+      },
+    ],
+  },
   webpack: (config, { isServer }) => {
     // Fix for @squircle-js/react ES module compatibility issue
     if (!isServer) {
