@@ -17,12 +17,15 @@ const Home: NextPage = () => {
         <title>Zerocard</title>
         <meta name="description" content="Spend crypto like cash with Zerocard" />
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Zerocard" />
-        <meta name="twitter:description" content="Spend crypto like cash with Zerocard" />
-        <meta name="twitter:image" content="/ogimage.png" />
-        <meta property="og:title" content="Zerocard" />
-        <meta property="og:description" content="Spend crypto like cash with Zerocard" />
-        <meta property="og:image" content="/ogimage.png" />
+        <meta name="twitter:site" content="@GETZEROCARD" />
+        <meta name="twitter:title" content="Zerocard | Spend Crypto & Move Money for Less" />
+        <meta name="twitter:description" content="Spend and transfer crypto and Naira locally and globally with Zerocard. Enjoy borderless payments, zero hidden fees, and instant transfers anywhere in the world." />
+        <meta name="twitter:image" content="https://res.cloudinary.com/dvj8mizva/image/upload/v1770117037/thumbnail_mpzmim.jpg" />
+
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content="Zerocard | Spend Crypto & Move Money for Less" />
+        <meta property="og:description" content="Spend and transfer crypto and Naira locally and globally with Zerocard." />
+        <meta property="og:image" content="https://res.cloudinary.com/dvj8mizva/image/upload/v1770117037/thumbnail_mpzmim.jpg" />
       </Head>
       <div className="min-h-screen flex flex-col px-4 sm:px-6 relative overflow-hidden">
         {/* Animated Gradient Background */}
