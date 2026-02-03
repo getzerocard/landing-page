@@ -62,9 +62,9 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>((
 Button.displayName = "Button";
 
 /**
- * Logo button specifically for the "Reserve a card" use case
+ * Logo button specifically for the "Download app" use case
  */
-export const ReserveCardButton = forwardRef<HTMLButtonElement, Omit<ButtonProps, 'variant' | 'icon' | 'children'>>((props, ref) => {
+export const DownloadAppButton = forwardRef<HTMLButtonElement, Omit<ButtonProps, 'variant' | 'icon' | 'children'>>((props, ref) => {
   return (
     <Button
       ref={ref}
@@ -79,11 +79,11 @@ export const ReserveCardButton = forwardRef<HTMLButtonElement, Omit<ButtonProps,
       }
       {...props}
     >
-      Reserve a card
+      Download app
     </Button>
   );
 });
-ReserveCardButton.displayName = "ReserveCardButton";
+DownloadAppButton.displayName = "DownloadAppButton";
 
 /**
  * Primary action button with default text, can be overridden by `text` prop

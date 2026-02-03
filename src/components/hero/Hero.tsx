@@ -1,15 +1,15 @@
 import React from 'react';
-import { ReserveCardButton } from '../buttons/Button';
+import { DownloadAppButton } from '../buttons/Button';
 import ReadWhyLink from './ReadWhyLink';
 import TypingText from './TypingText';
 import SubheadlineText from './SubheadlineText';
 
 interface HeroProps {
   className?: string;
-  onReserveCardClick?: () => void;
+  onDownloadAppClick?: () => void;
 }
 
-export const Hero: React.FC<HeroProps> = ({ className = '', onReserveCardClick }) => {
+export const Hero: React.FC<HeroProps> = ({ className = '', onDownloadAppClick }) => {
   const currencies = [
     'cash',
     'naira',      // Nigeria (Africa)
@@ -48,9 +48,9 @@ export const Hero: React.FC<HeroProps> = ({ className = '', onReserveCardClick }
       </SubheadlineText>
 
       {/* Buttons Container */}
-      <div className="flex justify-center sm:justify-start gap-4 mt-2 sm:mt-6 w-full sm:w-auto"> 
-        <ReserveCardButton 
-          onClick={onReserveCardClick}
+      <div className="flex justify-center sm:justify-start gap-4 mt-2 sm:mt-6 w-full sm:w-auto">
+        <DownloadAppButton
+          onClick={onDownloadAppClick}
         />
       </div>
     </div>
