@@ -8,7 +8,7 @@ const siteConfig = {
   name: 'Zerocard',
   description: 'Spend crypto like cash with Zerocard. The ultimate non-custodial crypto card.',
   url: 'https://getzerocard.com',
-  ogImage: '/ogimage.png',
+  ogImage: '/ogimage.webp',
 }
 
 // 2. Comprehensive Metadata Object
