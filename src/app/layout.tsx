@@ -3,7 +3,6 @@ import '../styles/global.css'
 import { FontLoader } from '@/components/FontLoader'
 
 
-// 1. Define base URL for absolute image paths (required by many platforms)
 const siteConfig = {
   name: 'Zerocard',
   description: 'Spend crypto like cash with Zerocard. The ultimate non-custodial crypto card.',
@@ -11,7 +10,7 @@ const siteConfig = {
   ogImage: '/ogimage.webp',
 }
 
-// 2. Comprehensive Metadata Object
+
 export const metadata = {
   title: {
     default: siteConfig.name,
@@ -46,7 +45,7 @@ export const metadata = {
     creator: '@getzerocard',
   },
 
-  // Icons & Browser Styling
+
   icons: {
     icon: '/favicon.ico',
     shortcut: '/favicon-16x16.png',
