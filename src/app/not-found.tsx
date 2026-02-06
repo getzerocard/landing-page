@@ -10,7 +10,7 @@ export default function NotFound() {
     return (
         <>
             <div className="bg-white min-h-screen flex flex-col px-4 sm:px-6 relative overflow-hidden">
-               
+               <CenteredLogo className="mt-12 sm:mt-16" />
                 <div className="flex-grow relative z-10 flex flex-col">
                  <div className="absolute inset-0 z-0 pointer-events-none">
                     <div className="absolute top-1/2 left-1/2 w-[300px] h-[300px] bg-[#40FF00] rounded-full filter blur-[100px] opacity-15 animate-blob"></div>
