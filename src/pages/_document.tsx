@@ -4,6 +4,9 @@ export default function Document() {
   return (
     <Html lang="en">
       <Head>
+        {/* Base app verification */}
+        <meta name="base:app_id" content="6a0c37a91c1db8c69c491b10" />
+
         {/* Preload critical font weights */}
         <link
           rel="preload"
