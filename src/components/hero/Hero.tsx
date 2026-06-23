@@ -1,7 +1,6 @@
 import React from 'react';
 import { DownloadAppButton } from '../buttons/Button';
 import ReadWhyLink from './ReadWhyLink';
-import TypingText from './TypingText';
 import SubheadlineText from './SubheadlineText';
 
 interface HeroProps {
@@ -10,25 +9,6 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ className = '', onDownloadAppClick }) => {
-  const currencies = [
-    'cash',
-    'naira',      // Nigeria (Africa)
-    'cedis',      // Ghana (Africa)
-    'shilling',   // Kenya (Africa)
-    'dollar',     // USA/Global
-    'euro',       // Europe
-    'pounds',     // UK
-    'rupees',     // India (APAC)
-    'yen',        // Japan (APAC)
-    'yuan',       // China (APAC)
-    'peso',       // Philippines/Mexico (APAC/LATAM)
-    'baht',       // Thailand (APAC)
-    'won',        // South Korea (APAC)
-    'real',       // Brazil (LATAM)
-    'sol',        // Peru (LATAM)
-    'franc'       // Switzerland
-  ];
-
   return (
     <div className={`w-full max-w-[500px] px-4 sm:px-0 mx-auto pt-8 sm:pt-24 md:pt-32 flex flex-col items-center gap-4 sm:gap-6 ${className}`}>
       {/* Read why link component */}
@@ -36,10 +16,7 @@ export const Hero: React.FC<HeroProps> = ({ className = '', onDownloadAppClick }
 
       {/* Headline */}
       <h1 className="w-full sm:w-[408px] font-['SF_Pro_Display'] font-semibold text-[40px] sm:text-[64px] leading-[110%] sm:leading-[100%] text-center text-[#1F1F1F]">
-        Spend crypto like{' '}
-        <span className="inline-block min-h-[44px] sm:min-h-[64px]">
-          <TypingText texts={currencies} className="text-[#8F8F8F]" />
-        </span>
+        Spend your money globally without thinking about currencies.
       </h1>
 
       {/* Subheadline */}
