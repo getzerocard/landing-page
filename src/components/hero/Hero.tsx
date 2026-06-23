@@ -2,7 +2,6 @@ import React from 'react';
 import { DownloadAppButton } from '../buttons/Button';
 import ReadWhyLink from './ReadWhyLink';
 import TypingText from './TypingText';
-import SubheadlineText from './SubheadlineText';
 
 interface HeroProps {
   className?: string;
@@ -41,11 +40,6 @@ export const Hero: React.FC<HeroProps> = ({ className = '', onDownloadAppClick }
           <TypingText texts={currencies} className="text-[#8F8F8F]" />
         </span>
       </h1>
-
-      {/* Subheadline */}
-      <SubheadlineText>
-        Swipe to spend crypto, effortlessly. We handle the setup so you can enjoy the ease.
-      </SubheadlineText>
 
       {/* Buttons Container */}
       <div className="flex justify-center sm:justify-start gap-4 mt-2 sm:mt-6 w-full sm:w-auto">
